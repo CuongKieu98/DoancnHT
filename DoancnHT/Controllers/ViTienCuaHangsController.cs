@@ -4,35 +4,58 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DoancnHT.Models;
+using Newtonsoft.Json;
 
 namespace DoancnHT.Controllers
 {
     public class ViTienCuaHangsController : Controller
     {
+        string url = "http://localhost/svdoancn/api/ViTienCuaHangs";
+        HttpClient client;
+        public ViTienCuaHangsController()
+        {
+            client = new HttpClient();
+            client.BaseAddress = new Uri(url);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/jason"));
+        }
         private dbHutechfoodContext db = new dbHutechfoodContext();
 
         // GET: ViTienCuaHangs
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(db.ViTienCuaHangs.ToList());
+            HttpResponseMessage responseMessage = await client.GetAsync(url);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                var settings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    MissingMemberHandling = MissingMemberHandling.Ignore
+                };
+                List<ViTienCuaHang> vitiencuahangs = JsonConvert.DeserializeObject<List<ViTienCuaHang>>(responseData, settings);
+
+                return View(vitiencuahangs);
+            }
+            return View("Error");
         }
 
         // GET: ViTienCuaHangs/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
-            if (id == null)
+            ViTienCuaHang vitiencuahangs = null;
+            HttpResponseMessage response = await client.GetAsync(url + "/" + id);
+            if (response.IsSuccessStatusCode)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                vitiencuahangs = await response.Content.ReadAsAsync<ViTienCuaHang>();
             }
-            ViTienCuaHang viTienCuaHang = db.ViTienCuaHangs.Find(id);
-            if (viTienCuaHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(viTienCuaHang);
+            return View(vitiencuahangs);
         }
 
         // GET: ViTienCuaHangs/Create
@@ -46,31 +69,28 @@ namespace DoancnHT.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaViCH,SoDu,NgayGiaoDich,SoTienGiaoDich,MaCH")] ViTienCuaHang viTienCuaHang)
+        public ActionResult Create(ViTienCuaHang vitiencuahangs)
         {
-            if (ModelState.IsValid)
+            HttpResponseMessage response = client.PostAsJsonAsync(url + "/", vitiencuahangs).Result;
+            response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
             {
-                db.ViTienCuaHangs.Add(viTienCuaHang);
-                db.SaveChanges();
+                SetAlert("Thêm hàng thành công!!!", "success");
                 return RedirectToAction("Index");
             }
-
-            return View(viTienCuaHang);
+            return RedirectToAction("Index");
         }
 
         // GET: ViTienCuaHangs/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
-            if (id == null)
+            Cuahang cuahangs = null;
+            HttpResponseMessage response = await client.GetAsync(url + "/" + id);
+            if (response.IsSuccessStatusCode)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                cuahangs = await response.Content.ReadAsAsync<Cuahang>();
             }
-            ViTienCuaHang viTienCuaHang = db.ViTienCuaHangs.Find(id);
-            if (viTienCuaHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(viTienCuaHang);
+            return View(cuahangs);
         }
 
         // POST: ViTienCuaHangs/Edit/5
@@ -80,40 +100,23 @@ namespace DoancnHT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MaViCH,SoDu,NgayGiaoDich,SoTienGiaoDich,MaCH")] ViTienCuaHang viTienCuaHang)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(viTienCuaHang).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(viTienCuaHang);
+            HttpResponseMessage response = client.PutAsJsonAsync(url + "/" + viTienCuaHang.MaViCH, viTienCuaHang).Result;
+            response.EnsureSuccessStatusCode();
+            SetAlert("Đã lưu chỉnh sửa!!!", "success");
+            return RedirectToAction("Index");
         }
 
         // GET: ViTienCuaHangs/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ViTienCuaHang viTienCuaHang = db.ViTienCuaHangs.Find(id);
-            if (viTienCuaHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(viTienCuaHang);
-        }
+
 
         // POST: ViTienCuaHangs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> Delete(int? id)
         {
-            ViTienCuaHang viTienCuaHang = db.ViTienCuaHangs.Find(id);
-            db.ViTienCuaHangs.Remove(viTienCuaHang);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            HttpResponseMessage response = await client.DeleteAsync(url + "/" + id);
+            SetAlert("Xóa thành công!!!", "success");
+            return RedirectToAction("Index", "ViTienCuaHangs");
         }
+
         protected void SetAlert(string message, string type)
         {
             TempData["AlertMessage"] = message;

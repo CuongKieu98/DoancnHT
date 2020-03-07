@@ -1,0 +1,123 @@
+﻿@model DoancnHT.Models.Cuahang
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<title>Thay đổi thông tin</title>
+
+<!--Header-->
+<div class="row">
+    <div class="col-lg-12 col-md-6 col-sm-7">
+        <h2>Cửa hàng</h2>
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Trang chủ</a></li>
+            <li class="breadcrumb-item">Cửa hàng</li>
+            <li class="breadcrumb-item active">Chỉnh sửa</li>
+        </ul>
+    </div>
+</div>
+<!--/Header-->
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    
+    <div class="body">
+        <form id="form_advanced_validation" method="POST" novalidate="novalidate">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.MaCH)
+            <div class="row clearfix">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input class="form-control" id="TenCH" name="TenCH" type="text" value="" placeholder="Tên cửa hàng..">
+
+                            @Html.ValidationMessageFor(model => model.TenCH, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="help-info">Tên cửa hàng</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+
+
+                            <input class="form-control" id="DienthoaiCH" name="DienthoaiCH" type="number" value="" placeholder="Điện thoại..">
+                            @Html.ValidationMessageFor(model => model.DienthoaiCH, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="help-info">Điện thoại</div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <h2 class="card-inside-title">Trạng thái cửa hàng:</h2>
+                    <div class="demo-radio-button">
+                        <input name="group1" type="radio" id="radio_1" checked="">
+                        <label for="radio_1"><span class="badge bg-green">Mở cửa</span></label>
+                        <input name="group1" type="radio" id="radio_2">
+                        <label for="radio_2"><span class="badge bg-grey">Đóng cửa</span></label>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row clearfix">
+                <div class="col-sm-4">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+
+
+                            <input class="form-control" id="DiachiCH" name="DiachiCH" type="text" value="" placeholder="Địa chỉ..">
+                            @Html.ValidationMessageFor(model => model.DiachiCH, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="help-info">Địa chỉ cửa hàng</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            @Html.EditorFor(model => model.DanhgiaCH, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @*<input class="form-control" id="DanhgiaCH" name="DienthoaiCH" type="text" value="" placeholder="Đánh giá..">*@
+                            @Html.ValidationMessageFor(model => model.DanhgiaCH, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="help-info">Đánh giá</div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="row clearfix">
+
+                <div class="col-sm-12">
+                    <h2 class="card-inside-title">Mô tả cửa hàng:</h2>
+                    <textarea name="MotaCH" id="MotaCH">Nội dung...</textarea>
+                    <script>
+                        CKEDITOR.replace('MotaCH');
+                    </script>
+                    @Html.ValidationMessageFor(model => model.MotaCH, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <input type="submit" value="Save" class="btn btn-default" />
+        </form>
+
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

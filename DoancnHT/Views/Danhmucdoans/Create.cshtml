@@ -1,0 +1,106 @@
+﻿@model DoancnHT.Models.Danhmucdoan
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<title>Thêm danh mục</title>
+
+<!--Header-->
+<div class="row">
+    <div class="col-lg-12 col-md-6 col-sm-7">
+        <h2>Cửa hàng</h2>
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Danh mục</li>
+        </ul>
+    </div>
+</div>
+<!--/Header-->
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @*<div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col-sm-4">
+            <div class="form-group">
+                <div class="form-line">
+                    <input class="form-control" id="TenDM" name="TenCH" type="text" value="" placeholder="Tên danh mục..">
+
+                    @Html.ValidationMessageFor(model => model.TenDM, "", new { @class = "text-danger" })
+                </div>
+                <div class="help-info">Tên danh mục</div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenDM, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenDM, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenDM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Hinhanhdm, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Hinhanhdm, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Hinhanhdm, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaCH, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaCH, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaCH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <button class="btn btn-raised btn-primary waves-effect" type="submit">Thêm mới</button>
+    </div>*@
+    <div class="body">
+        <form id="form_advanced_validation" method="POST" novalidate="novalidate">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row clearfix">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input class="form-control" id="TenDM" name="TenDM" type="text" value="" placeholder="Tên danh mục..">
+
+                            @Html.ValidationMessageFor(model => model.TenDM, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="help-info">Tên danh mục</div>
+                    </div>
+                </div>
+            </div>
+
+
+        
+            <div class="row clearfix">
+
+                <div class="col-sm-4">
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="Hinhanhdm" name="Hinhanhdm" class="file-upload" />
+                        @Html.ValidationMessageFor(model => model.Hinhanhdm, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+            </div>
+            <button class="btn btn-raised btn-primary waves-effect" type="submit">Thêm mới</button>
+        </form>
+
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+<!--ss-->

@@ -1,0 +1,91 @@
+﻿@model DoancnHT.Models.Doan
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Doan</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenDA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenDA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dongia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dongia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnhDA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnhDA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MoTa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoTa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayCapNhat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayCapNhat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoLuongTon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuongTon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrangThaiDA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrangThaiDA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DanhGiaDoAn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DanhGiaDoAn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaDM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaDM)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaDA }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

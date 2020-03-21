@@ -1,59 +1,107 @@
-﻿@model DoancnHT.Models.Khuyenmai
+﻿@model List<DoancnHT.Models.ChiTietKhuyenMai>
+@using DoancnHT.Models
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
+<title>Thông tin khuyến mãi</title>
 
-<div>
-    <h4>Khuyenmai</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenKM)
-        </dt>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>Recent sales</h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);">Action</a></li>
+                            <li><a href="javascript:void(0);">Another action</a></li>
+                            <li><a href="javascript:void(0);">Something else</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Khuyến mãi: @ViewBag.MKM</th>
+                                <th>Sản phẩm KM: </th>
+                                <th>Giá KM</th>
+                                <th>Số lượng km</th>
+                                <th>Bắt đầu</th>
+                                <th>Kết thúc</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td class="txt-oflo"><a href="@Url.Action("Details","Doans",new { id = ViewBag.id})">@ViewBag.nameDa</a></td>
+                                <td><span class="label label-success">DOING</span> </td>
+                                <td class="txt-oflo">Feb 11, 2017</td>
+                                <td><span class="text-success">$100</span></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td class="txt-oflo">Lorem Ipsum is</td>
+                                <td><span class="label label-info">TO DO</span></td>
+                                <td class="txt-oflo">March 29, 2017</td>
+                                <td><span class="text-info">$321</span></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td class="txt-oflo">Lorem Ipsum is simply</td>
+                                <td><span class="label label-danger">SUSPENDED</span></td>
+                                <td class="txt-oflo">April 21, 2017</td>
+                                <td><span class="text-danger">-$204</span></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td class="txt-oflo">Hosting press html</td>
+                                <td><span class="label label-warning">WAIT APPROVEL</span></td>
+                                <td class="txt-oflo">Jun 22, 2017</td>
+                                <td><span class="text-success">$11</span></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td class="txt-oflo">Lorem is simply</td>
+                                <td><span class="label label-success">DOING</span></td>
+                                <td class="txt-oflo">July 20, 2017</td>
+                                <td><span class="text-success">$11</span></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td class="txt-oflo">Lorem Ipsum simply</td>
+                                <td><span class="label label-success">DOING</span> </td>
+                                <td class="txt-oflo">July 21, 2017</td>
+                                <td><span class="text-danger">-$11</span></td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td class="txt-oflo">Lorem Ipsum is simply</td>
+                                <td><span class="label label-warning">WAIT APPROVEL</span></td>
+                                <td class="txt-oflo">July 21, 2017</td>
+                                <td><span class="text-success">$54</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-        <dd>
-            @Html.DisplayFor(model => model.TenKM)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MotaKM)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MotaKM)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TgBatDau)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TgBatDau)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TgKetThuc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TgKetThuc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaCH)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaCH)
-        </dd>
-
-    </dl>
+                    <a href="#">Check all the sales</a>
+                </div>
+                <div class="row sales-report">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <h2>Jan 2017</h2>
+                        <p>SALES REPORT</p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 ">
+                        <h1 class="text-right text-success m-t-20">$4,231</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaKM }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

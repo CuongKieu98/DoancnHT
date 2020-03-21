@@ -16,8 +16,9 @@ namespace DoancnHT.Controllers
 {
     public class DoansController : Controller
     {
-        string url = "http://localhost/svdoancn/api/Doans";
+        string url = Constants.url;
         HttpClient client;
+        public static List<Doan> listda = new List<Doan>();
         public DoansController()
         {
             client = new HttpClient();
@@ -31,7 +32,18 @@ namespace DoancnHT.Controllers
         // GET: Doans
         public async Task<ActionResult> Index()
         {
-            HttpResponseMessage responseMessage = await client.GetAsync(url);
+            HttpResponseMessage responseMessage = await client.GetAsync(url + @"Doans/");
+            List<Doan> da = getAllDoan(responseMessage);
+            if (da != null)
+            {
+                ViewBag.accept = false;
+                var list = da.ToList();
+                return View(list);
+            }
+            return View("Error");
+        }
+        public static List<Doan> getAllDoan(HttpResponseMessage responseMessage)
+        {
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
@@ -41,17 +53,17 @@ namespace DoancnHT.Controllers
                     MissingMemberHandling = MissingMemberHandling.Ignore
                 };
                 List<Doan> doans = JsonConvert.DeserializeObject<List<Doan>>(responseData, settings);
-
-                return View(doans);
+                var listda = doans.ToList();
+                return listda;
             }
-            return View("Error");
+            return null;
         }
 
         // GET: Doans/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             Doan doans = null;
-            HttpResponseMessage response = await client.GetAsync(url + "/" + id);
+            HttpResponseMessage response = await client.GetAsync(url + @"Doans/" + id);
             if (response.IsSuccessStatusCode)
             {
                 doans = await response.Content.ReadAsAsync<Doan>();
@@ -72,7 +84,7 @@ namespace DoancnHT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Doan doans)
         {
-            HttpResponseMessage response = client.PostAsJsonAsync(url + "/", doans).Result;
+            HttpResponseMessage response = client.PostAsJsonAsync(url + @"Doans/", doans).Result;
             response.EnsureSuccessStatusCode();
             if (response.IsSuccessStatusCode)
             {
@@ -86,7 +98,7 @@ namespace DoancnHT.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             Doan doans = null;
-            HttpResponseMessage response = await client.GetAsync(url + "/" + id);
+            HttpResponseMessage response = await client.GetAsync(url + @"Doans/" + id);
             if (response.IsSuccessStatusCode)
             {
                 doans = await response.Content.ReadAsAsync<Doan>();
@@ -101,7 +113,7 @@ namespace DoancnHT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MaDA,TenDA,Dongia,AnhDA,MoTa,NgayCapNhat,SoLuongTon,TrangThaiDA,DanhGiaDoAn,MaDM")] Doan doan)
         {
-            HttpResponseMessage response = client.PutAsJsonAsync(url + "/" + doan.MaDA, doan).Result;
+            HttpResponseMessage response = client.PutAsJsonAsync(url + @"Doans/" + doan.MaDA, doan).Result;
             response.EnsureSuccessStatusCode();
             SetAlert("Đã lưu chỉnh sửa!!!", "success");
             return RedirectToAction("Index");
@@ -111,7 +123,7 @@ namespace DoancnHT.Controllers
         // GET: Doans/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            HttpResponseMessage response = await client.DeleteAsync(url + "/" + id);
+            HttpResponseMessage response = await client.DeleteAsync(url + @"Doans/" + id);
             SetAlert("Xóa thành công!!!", "success");
             return RedirectToAction("Index", "Doans");
         }

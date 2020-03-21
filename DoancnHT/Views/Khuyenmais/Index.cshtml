@@ -1,19 +1,26 @@
-﻿@model IEnumerable<DoancnHT.Models.Khuyenmai>
+﻿
+@model IEnumerable<DoancnHT.Models.Khuyenmai>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<title>Chương trình khuyến mãi</title>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<link href="~/assets/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<title>Khuyến mãi</title>
+
+<!--Header-->
 <div class="row">
     <div class="col-lg-12 col-md-6 col-sm-7">
-        <h2>Cửa hàng</h2>
+        <h2>Chương trình khuyến mãi</h2>
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Trang chủ</a></li>
             <li class="breadcrumb-item active">Khuyến mãi</li>
         </ul>
     </div>
 </div>
+<!--/Header-->
 @if (TempData["AlertMessage"] != null)
 {
     <div id="AlertBox" class="alert @TempData["AlertType"] hidden">
@@ -22,74 +29,99 @@
     </div>
 
 }
+<!--HHH-->
 <div class="row clearfix">
     <div class="col-lg-12">
         <div class="card">
             <div class="header">
-                <h2> Vị trí giao hàng <small>Lọc sản phẩm...tìm kiếm</small> </h2>
+                <h2> Tất cả cửa hàng <small>Lọc cửa hàng...tìm kiếm</small> </h2>
                 <ul class="header-dropdown m-r--5">
                     <li class="dropdown">
-                        <a href="@Url.Action("Create","Khuyenmais")" class="btn  btn-raised g-bg-gy waves-effect">Thêm mới</a>
-
+                        <a href="@Url.Action("Create","Cuahangs")" class="btn  btn-raised g-bg-gy waves-effect">Thêm mới</a>
                     </li>
                 </ul>
-
             </div>
 
-            <div class="body table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Khuyến mãi</th>
-                            <th>Chi tiết</th>
-                            <th>Ngày bắt đầu</th>
-                            <th>Ngày kết thúc</th>
-                            <th>Trạng thái</th>
-                            <th>Tùy chọn</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
+            <div class="body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
 
-                        @foreach (var item in Model)
-                        {
+                        <thead>
                             <tr>
+                                <th>No.</th>
+                                <th>Khuyến mãi</th>
 
+                                <th>Mô tả</th>
+                                <th>Ngày bắt đầu</th>
+                                <th>Ngày kết thúc</th>
 
-                                <td style="text-align: center">@item.MaKM</td>
-                                <td>
-                                    <a href="@Url.Action("Details", "Khuyenmais", new { id = item.MaKM })">
-                                        @Html.DisplayFor(modelItem => item.TenKM)
-
-                                    </a>
-
-                                </td>
-                                <td> @Html.DisplayFor(modelItem => item.MotaKM)</td>
-                                <td> @Html.DisplayFor(modelItem => item.TgBatDau)</td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TgKetThuc)
-                                </td>
-                                <td>
-                                   
-                                </td>
-                                <td><a href="@Url.Action("Delete","Khuyenmais", new { id = item.MaKM })" title="Xóa"><i class="material-icons">delete_forever</i></a> </td>
-
+                                <th>Thao tác</th>
                             </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>No.</th>
+                                <th>Khuyến mãi</th>
 
-                        }
-                    </tbody>
-                </table>
-                <ul class="pagination" style="padding-left:700px">
-                    <li class="page-item"><a class="page-link" href="#">Quay lại</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Tiếp theo</a></li>
-                </ul>
+                                <th>Mô tả</th>
+                                <th>Ngày bắt đầu</th>
+                                <th>Ngày kết thúc</th>
 
+                                <th>Thao tác</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @{int i = 1;}
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td>@i</td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "Khuyenmais", new { id = item.MaKM })">
+                                            @Html.DisplayFor(modelItem => item.TenKM)
+
+                                        </a>
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MotaKM)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TgBatDau)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TgKetThuc)
+                                    </td>
+
+                                    <td>
+                                        <a href="@Url.Action("Delete","Khuyenmais", new { id = item.MaKM  })" title="Xóa"><i class="material-icons">delete_forever</i></a>
+                                    </td>
+
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script src="~/assets/js/buttons/vendorscripts.bundle.js"></script>
+<script src="~/assets/js/buttons/datatablescripts.bundle.js"></script>
+<script src="~/assets/js/buttons/jquery-datatable.js"></script>
+
+<script type="text/javascript" charset="utf8">
+    $(document).ready(function () {
+        setTimeout(function () {
+            var listButton = $('#DataTables_Table_0_length').find('button');
+            listButton.each(function () {
+                $(this).remove();
+            });
+        }, 500);
+    });
+</script>
+
 

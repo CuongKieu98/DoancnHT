@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DoancnHT.Models.ChiTietKhuyenMai>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaCH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GiaKM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoLuongKM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaDA)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaCH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GiaKM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoLuongKM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaDA)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaKM }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaKM }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaKM })
+        </td>
+    </tr>
+}
+
+</table>

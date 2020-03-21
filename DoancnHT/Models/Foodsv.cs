@@ -45,10 +45,12 @@ namespace DoancnHT.Models
         [Key]
         public int MaDA { get; set; }
         public string TenDA { get; set; }
+        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public string Dongia { get; set; }
         public string AnhDA { get; set; }
         public string MoTa { get; set; }
-        public string NgayCapNhat { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime NgayCapNhat { get; set; }
         public string SoLuongTon { get; set; }
         public string TrangThaiDA { get; set; }
         public string DanhGiaDoAn { get; set; }
@@ -64,6 +66,16 @@ namespace DoancnHT.Models
         public string SoTienGiaoDich { get; set; }
         public int MaCH { get; set; }
     }
+    public partial class ChiTietKhuyenMai
+    {
+        [Key]
+        public int MaKM { get; set; }
+        public int MaCH { get; set; }
+        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+        public decimal GiaKM { get; set; }
+        public int SoLuongKM { get; set; }
+        public int MaDA { get; set; }
+    }
     public class dbHutechfoodContext : DbContext
     {
         public DbSet<Khuyenmai> Khuyenmais { get; set; }
@@ -71,5 +83,6 @@ namespace DoancnHT.Models
         public DbSet<Danhmucdoan> Danhmucdoans { get; set; }
         public DbSet<Doan> Doans { get; set; }
         public DbSet<ViTienCuaHang> ViTienCuaHangs { get; set; }
+        public DbSet<ChiTietKhuyenMai> ChiTietKhuyenMais { get; set; }
     }
 }

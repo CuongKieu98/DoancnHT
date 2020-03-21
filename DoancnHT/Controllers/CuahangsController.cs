@@ -10,15 +10,18 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DoancnHT.Models;
+
 using Newtonsoft.Json;
+using PagedList;
 
 namespace DoancnHT.Controllers
 {
     public class CuahangsController : Controller
     {
 
-        string url = "http://localhost/svdoancn/api/Cuahangs";
+        string url = Constants.url;
         HttpClient client;
+        public static List<Cuahang> listch = new List<Cuahang>();
         public CuahangsController()
         {
             client = new HttpClient();
@@ -31,7 +34,18 @@ namespace DoancnHT.Controllers
         // GET: Cuahangs
         public async Task<ActionResult> Index()
         {
-            HttpResponseMessage responseMessage = await client.GetAsync(url);
+            HttpResponseMessage responseMessage = await client.GetAsync(url + @"Cuahangs/");
+            List<Cuahang> ch = getAllCuaHang(responseMessage);
+            if (ch != null)
+            {
+                ViewBag.accept = false;
+                var list = ch.ToList();
+                return View(list);
+            }
+            return View("Error");
+        }
+        public static List<Cuahang> getAllCuaHang(HttpResponseMessage responseMessage)
+        {
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
@@ -41,17 +55,17 @@ namespace DoancnHT.Controllers
                     MissingMemberHandling = MissingMemberHandling.Ignore
                 };
                 List<Cuahang> cuahangs = JsonConvert.DeserializeObject<List<Cuahang>>(responseData, settings);
-
-                return View(cuahangs);
+                var listch = cuahangs.ToList();
+                return listch;
             }
-            return View("Error");
+            return null;
         }
 
         // GET: Cuahangs/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             Cuahang cuahangs = null;
-            HttpResponseMessage response = await client.GetAsync(url + "/" + id);
+            HttpResponseMessage response = await client.GetAsync(url + @"Cuahangs/" + id);
             if (response.IsSuccessStatusCode)
             {
                 cuahangs = await response.Content.ReadAsAsync<Cuahang>();
@@ -73,12 +87,17 @@ namespace DoancnHT.Controllers
         
         public ActionResult Create(Cuahang cuahangs)
         {
-            HttpResponseMessage response = client.PostAsJsonAsync(url + "/", cuahangs).Result;
+            HttpResponseMessage response = client.PostAsJsonAsync(url + @"Cuahangs/", cuahangs).Result;
             response.EnsureSuccessStatusCode();
             if (response.IsSuccessStatusCode)
             {
                 SetAlert("Thêm cửa hàng thành công!!!", "success");
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                SetAlert("Lỗi!!!", "error");
+
             }
             return RedirectToAction("Index");
         }
@@ -87,7 +106,7 @@ namespace DoancnHT.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             Cuahang cuahangs = null;
-            HttpResponseMessage response = await client.GetAsync(url + "/" + id);
+            HttpResponseMessage response = await client.GetAsync(url + @"Cuahangs/" + id);
             if (response.IsSuccessStatusCode)
             {
                 cuahangs = await response.Content.ReadAsAsync<Cuahang>();
@@ -102,7 +121,7 @@ namespace DoancnHT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MaCH,TenCH,DiachiCH,DienthoaiCH,MotaCH,DanhgiaCH,MaDonHang")] Cuahang cuahangs)
         {
-            HttpResponseMessage response = client.PutAsJsonAsync(url + "/" + cuahangs.MaCH, cuahangs).Result;
+            HttpResponseMessage response = client.PutAsJsonAsync(url + @"Cuahangs/" + cuahangs.MaCH, cuahangs).Result;
             response.EnsureSuccessStatusCode();
             SetAlert("Đã lưu chỉnh sửa!!!", "success");
             return RedirectToAction("Index");
@@ -112,8 +131,17 @@ namespace DoancnHT.Controllers
         // GET: Cuahangs/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            HttpResponseMessage response = await client.DeleteAsync(url + "/" + id);
-            SetAlert("Xóa thành công!!!", "success");
+            HttpResponseMessage response = await client.DeleteAsync(url + @"Cuahangs/" + id);
+            if (response.IsSuccessStatusCode)
+            {
+                SetAlert("Xóa thành công!!!", "success");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                SetAlert("Lỗi!!!", "error");
+
+            }
             return RedirectToAction("Index", "Cuahangs");
         }
 

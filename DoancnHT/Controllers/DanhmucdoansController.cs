@@ -16,8 +16,9 @@ namespace DoancnHT.Controllers
 {
     public class DanhmucdoansController : Controller
     {
-        string url = "http://localhost/svdoancn/api/Danhmucdoans";
+        string url = Constants.url;
         HttpClient client;
+        public static List<Danhmucdoan> listdm = new List<Danhmucdoan>();
         public DanhmucdoansController()
         {
             client = new HttpClient();
@@ -31,7 +32,18 @@ namespace DoancnHT.Controllers
         // GET: Danhmucdoans
         public async Task<ActionResult> Index()
         {
-            HttpResponseMessage responseMessage = await client.GetAsync(url);
+            HttpResponseMessage responseMessage = await client.GetAsync(url + @"Danhmucdoans/");
+            List<Danhmucdoan> dm = getAllDanhmucdoan(responseMessage);
+            if (dm != null)
+            {
+                ViewBag.accept = false;
+                var list = dm.ToList();
+                return View(list);
+            }
+            return View("Error");
+        }
+        public static List<Danhmucdoan> getAllDanhmucdoan(HttpResponseMessage responseMessage)
+        {
             if (responseMessage.IsSuccessStatusCode)
             {
                 var responseData = responseMessage.Content.ReadAsStringAsync().Result;
@@ -41,17 +53,17 @@ namespace DoancnHT.Controllers
                     MissingMemberHandling = MissingMemberHandling.Ignore
                 };
                 List<Danhmucdoan> danhmucdoans = JsonConvert.DeserializeObject<List<Danhmucdoan>>(responseData, settings);
-
-                return View(danhmucdoans);
+                var listdm = danhmucdoans.ToList();
+                return listdm;
             }
-            return View("Error");
+            return null;
         }
 
         // GET: Danhmucdoans/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             Danhmucdoan danhmucdoans = null;
-            HttpResponseMessage response = await client.GetAsync(url + "/" + id);
+            HttpResponseMessage response = await client.GetAsync(url + @"Danhmucdoans/" + id);
             if (response.IsSuccessStatusCode)
             {
                 danhmucdoans = await response.Content.ReadAsAsync<Danhmucdoan>();
@@ -72,7 +84,7 @@ namespace DoancnHT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Danhmucdoan danhmucdoans)
         {
-            HttpResponseMessage response = client.PostAsJsonAsync(url + "/", danhmucdoans).Result;
+            HttpResponseMessage response = client.PostAsJsonAsync(url + @"Danhmucdoans/", danhmucdoans).Result;
             response.EnsureSuccessStatusCode();
             if (response.IsSuccessStatusCode)
             {
@@ -88,7 +100,7 @@ namespace DoancnHT.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             Danhmucdoan danhmucdoans = null;
-            HttpResponseMessage response = await client.GetAsync(url + "/" + id);
+            HttpResponseMessage response = await client.GetAsync(url + @"Danhmucdoans/" + id);
             if (response.IsSuccessStatusCode)
             {
                 danhmucdoans = await response.Content.ReadAsAsync<Danhmucdoan>();
@@ -103,7 +115,7 @@ namespace DoancnHT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MaDM,TenDM,Hinhanhdm,MaCH")] Danhmucdoan danhmucdoans)
         {
-            HttpResponseMessage response = client.PutAsJsonAsync(url + "/" + danhmucdoans.MaDM, danhmucdoans).Result;
+            HttpResponseMessage response = client.PutAsJsonAsync(url + @"Danhmucdoans/" + danhmucdoans.MaDM, danhmucdoans).Result;
             response.EnsureSuccessStatusCode();
             SetAlert("Đã lưu chỉnh sửa!!!", "success");
             return RedirectToAction("Index");

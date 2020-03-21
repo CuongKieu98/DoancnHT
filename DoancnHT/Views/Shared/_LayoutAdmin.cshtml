@@ -14,8 +14,8 @@
     <link href="~/assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css" rel="stylesheet" />
     <link href="~/assets/plugins/dropzone/dropzone.css" rel="stylesheet" />
     <link href="~/assets/plugins/morrisjs/morris.css" rel="stylesheet" />
-    <link href="~/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
-    <link href="~/assets/plugins/waitme/waitMe.css" rel="stylesheet" />
+    <!-- <link href="~/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="~/assets/plugins/waitme/waitMe.css" rel="stylesheet" /> -->
     <link href="~/assets/plugins/multi-select/css/multi-select.css" rel="stylesheet" />
     <link href="~/assets/plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet" />
     <link href="~/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" />
@@ -215,9 +215,9 @@
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-email"></i><span>Quản lý cửa hàng</span> </a>
                     <ul class="ml-menu">
-                        <li><a href="@Url.Action("Sanpham","Admin")">Sản phẩm</a></li>
-                        <li><a href="@Url.Action("Danhmuc","Admin")">Danh mục</a></li>
-                        <li><a href="@Url.Action("SaleA","SP")">Khuyến mãi</a></li>
+                        <li><a href="@Url.Action("Index","Doans")">Sản phẩm</a></li>
+                        <li><a href="@Url.Action("Index","Danhmucdoans")">Danh mục</a></li>
+                        <li><a href="@Url.Action("Index","Cuahangs")">Cửa hàng</a></li>
                     </ul>
                 </li>
                 <li class="header">Đơn hàng</li>
@@ -256,6 +256,12 @@
             </div>
         </div>
     </section>
+    @if (ViewBag.accept == null)
+    {
+        
+        <script src="~/assets/bundles/libscripts.bundle.js"></script>
+        
+    }
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script async="" src="https://embed.tawk.to/59f5afbbbb0c3f433d4c5c4c/default" charset="UTF-8" crossorigin="*"></script>
     <script src="~/assets/plugins/sweetalert/sweetalert.min.js"></script>
@@ -265,7 +271,7 @@
     <script src="~/assets/plugins/bootstrap-notify/bootstrap-notify.js"></script>
     <script src="~/assets/plugins/waitme/waitMe.js"></script>
     <script src="~/assets/js/pages/ui/dialogs.js"></script>
-    <script src="~/assets/bundles/libscripts.bundle.js"></script>
+   
     <!-- Lib Scripts Plugin Js -->
     <script src="~/assets/bundles/vendorscripts.bundle.js"></script>
     <!-- Lib Scripts Plugin Js -->

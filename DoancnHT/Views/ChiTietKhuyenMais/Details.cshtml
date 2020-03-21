@@ -1,0 +1,51 @@
+﻿@model DoancnHT.Models.ChiTietKhuyenMai
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ChiTietKhuyenMai</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaCH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaCH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GiaKM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GiaKM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoLuongKM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuongKM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaDA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaDA)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaKM }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -53,6 +53,12 @@
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -130,16 +136,20 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ChiTietKhuyenMaisController.cs" />
     <Compile Include="Controllers\CuahangsController.cs" />
     <Compile Include="Controllers\DanhmucdoansController.cs" />
     <Compile Include="Controllers\DoansController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IDController.cs" />
     <Compile Include="Controllers\KhuyenmaisController.cs" />
     <Compile Include="Controllers\ViTienCuaHangsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Foodsv.cs" />
+    <Compile Include="Models\MessageContants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +166,7 @@
     <Content Include="assets\css\all-themes.css" />
     <Content Include="assets\css\authentication.css" />
     <Content Include="assets\css\blog.css" />
+    <Content Include="assets\css\dataTables.bootstrap4.min.css" />
     <Content Include="assets\css\hm-style.css" />
     <Content Include="assets\css\main.css" />
     <Content Include="assets\css\timeline.css" />
@@ -226,6 +237,17 @@
     <Content Include="assets\images\xs\avatar3.jpg" />
     <Content Include="assets\images\xs\avatar4.jpg" />
     <Content Include="assets\images\xs\avatar5.jpg" />
+    <Content Include="assets\js\buttons\buttons.bootstrap4.min.js" />
+    <Content Include="assets\js\buttons\buttons.colVis.min.js" />
+    <Content Include="assets\js\buttons\buttons.flash.min.js" />
+    <Content Include="assets\js\buttons\buttons.html5.min.js" />
+    <Content Include="assets\js\buttons\buttons.print.min.js" />
+    <Content Include="assets\js\buttons\dataTables.buttons.min.js" />
+    <Content Include="assets\js\buttons\datatablescripts.bundle.js" />
+    <Content Include="assets\js\buttons\jquery-datatable.js" />
+    <Content Include="assets\js\buttons\libscripts.bundle.js" />
+    <Content Include="assets\js\buttons\mainscripts.bundle.js" />
+    <Content Include="assets\js\buttons\vendorscripts.bundle.js" />
     <Content Include="assets\js\pages\calendar\calendar.js" />
     <Content Include="assets\js\pages\cards\basic.js" />
     <Content Include="assets\js\pages\charts\chartjs.js" />
@@ -647,6 +669,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -786,11 +809,6 @@
     <Content Include="Views\Cuahangs\Edit.cshtml" />
     <Content Include="Views\Cuahangs\Index.cshtml" />
     <Content Include="Views\Home\Namea.cshtml" />
-    <Content Include="Views\Khuyenmais\Create.cshtml" />
-    <Content Include="Views\Khuyenmais\Delete.cshtml" />
-    <Content Include="Views\Khuyenmais\Details.cshtml" />
-    <Content Include="Views\Khuyenmais\Edit.cshtml" />
-    <Content Include="Views\Khuyenmais\Index.cshtml" />
     <Content Include="Views\Danhmucdoans\Create.cshtml" />
     <Content Include="Views\Danhmucdoans\Delete.cshtml" />
     <Content Include="Views\Danhmucdoans\Details.cshtml" />
@@ -806,9 +824,20 @@
     <Content Include="Views\ViTienCuaHangs\Details.cshtml" />
     <Content Include="Views\ViTienCuaHangs\Edit.cshtml" />
     <Content Include="Views\ViTienCuaHangs\Index.cshtml" />
+    <Content Include="Views\Khuyenmais\Create.cshtml" />
+    <Content Include="Views\Khuyenmais\Delete.cshtml" />
+    <Content Include="Views\Khuyenmais\Details.cshtml" />
+    <Content Include="Views\Khuyenmais\Edit.cshtml" />
+    <Content Include="Views\Khuyenmais\Index.cshtml" />
+    <Content Include="Views\ChiTietKhuyenMais\Create.cshtml" />
+    <Content Include="Views\ChiTietKhuyenMais\Delete.cshtml" />
+    <Content Include="Views\ChiTietKhuyenMais\Details.cshtml" />
+    <Content Include="Views\ChiTietKhuyenMais\Edit.cshtml" />
+    <Content Include="Views\ChiTietKhuyenMais\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ID\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

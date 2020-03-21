@@ -1,43 +1,58 @@
 ﻿@model DoancnHT.Models.Danhmucdoan
-
+@using DoancnHT.Models
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>Details</h2>
+<div class="body">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
 
-<div>
-    <h4>Danhmucdoan</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenDM)
-        </dt>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>sản phẩm</th>
+                   
+                    <th>Mô tả</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>No.</th>
+                    <th>Loại sản phẩm</th>
+                    <th>Mô tả</th>
+               
+                    <th>Thao tác</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                @{int i = 1;}
+                @foreach (Doan doan in ViewBag.da)
+                {
 
-        <dd>
-            @Html.DisplayFor(model => model.TenDM)
-        </dd>
+                <tr>
+                    <td>@i</td>
+                    <td>
+                        @Html.ActionLink(doan.TenDA, "Details", new { id = doan.MaDA })
+                    </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Hinhanhdm)
-        </dt>
+                    <td>
+                        @Html.DisplayFor(modelItem => doan.Dongia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => doan.MoTa)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Delete","Cuahangs", new { id = doan.MaDA })" title="Xóa"><i class="material-icons">delete_forever</i></a>
+                    </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.Hinhanhdm)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaCH)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaCH)
-        </dd>
-
-    </dl>
+                </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaDM }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -1,73 +1,212 @@
 ﻿@model DoancnHT.Models.Cuahang
+@using DoancnHT.Models
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-<h2>Details</h2>
+<title>
+    Thông tin:
+    @Html.DisplayFor(model => model.TenCH)
+</title>
+<!--Header-->
+<div class="row">
+    <div class="col-lg-12 col-md-6 col-sm-7">
+        <h2>Thông tin cửa hàng</h2>
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Cuahangs")">Cửa hàng</a> </li>
+            <li class="breadcrumb-item active"> @Html.DisplayFor(model => model.TenCH)</li>
+        </ul>
+    </div>
+</div>
+<!--/Header-->
 
 <div>
-    <h4>Cuahang</h4>
+
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenCH)
-        </dt>
+    <div class="row clearfix">
+        <div class="col-lg-3 col-md-6">
+            <div class="card top-report">
+                <div class="body">
+                    <h3 class="m-t-0">3,000,000 vnđ</h3>
+                    <p class="text-muted">Doanh thu</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
+                    </div>
+                    <small>tăng 5% so với tháng trước</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card top-report">
+                <div class="body">
+                    <h3 class="m-t-0">+ 26.8%</h3>
+                    <p class="text-muted">Đơn hàng</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100" style="width:32%;"></div>
+                    </div>
+                    <small>4% higher than last month</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card top-report">
+                <div class="body">
+                    <h3 class="m-t-0">$ 14,500</h3>
+                    <p class="text-muted">Total Sale</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
+                    </div>
+                    <small>15% higher than last month</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card top-report">
+                <div class="body">
+                    <h3 class="m-t-0">1,600</h3>
+                    <p class="text-muted">Total Feedbacks</p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
+                    </div>
+                    <small>10% higher than last month</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+              
+                <div class="body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#home_with_icon_title"> <i class="material-icons">home</i> @Html.DisplayFor(model => model.TenCH) </a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile_with_icon_title"><i class="material-icons">person</i> Thông tin </a></li>
+                    
+                    </ul>
 
-        <dd>
-            @Html.DisplayFor(model => model.TenCH)
-        </dd>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane in active show" id="home_with_icon_title">
+                            <b>Danh mục sản phẩm của cửa hàng:</b>
+                            <p>
+                                <div class="body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DiachiCH)
-        </dt>
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Loại sản phẩm</th>
+                                                    <th>Mô tả</th>
+                                                    @*<th>Mã đơn hàng</th>*@
+                                                    @*<th>Mã khuyến mãi</th>*@
+                                                    <th>Thao tác</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Loại sản phẩm</th>
+                                                    <th>Mô tả</th>
+                                                    @*<th>Mã đơn hàng</th>*@
+                                                    @*<th>Mã khuyến mãi</th>*@
+                                                    <th>Thao tác</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                @{int i = 1;}
+                                                @foreach (Danhmucdoan danhmucdoan in ViewBag.danhmuc)
+                                                {
 
-        <dd>
-            @Html.DisplayFor(model => model.DiachiCH)
-        </dd>
+                                                    <tr>
+                                                        <td>@i</td>
+                                                        <td>
+                                                            @Html.ActionLink(danhmucdoan.TenDM, "Details", new { id = danhmucdoan.MaDM })
+                                                        </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DienthoaiCH)
-        </dt>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => danhmucdoan.Hinhanhdm)
+                                                        </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.DienthoaiCH)
-        </dd>
+                                                        <td>
+                                                            <a href="@Url.Action("Delete","Cuahangs", new { id = danhmucdoan.MaDM })" title="Xóa"><i class="material-icons">delete_forever</i></a>
+                                                        </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MotaCH)
-        </dt>
+                                                    </tr>
+                                                    i++;
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile_with_icon_title">
+                            <b>Thông tin cửa hàng:</b>
+                            <p>
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        Địa chỉ:
+                                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.MotaCH)
-        </dd>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.DiachiCH)
+                                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DanhgiaCH)
-        </dt>
+                                    <dt>
+                                        Điện thoại:
+                                    </dt>
 
-        <dd>
-            @if (Model.DanhgiaCH != null)
-            {
-                <i class="material-icons">star_border</i>
-            }
-            else
-            {
-                <i class="material-icons">star_border</i>
-            }
-        </dd>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.DienthoaiCH)
+                                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MaDonHang)
-        </dt>
+                                    <dt>
+                                        Giới thiệu
+                                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.MaDonHang)
-        </dd>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.MotaCH)
+                                    </dd>
 
-    </dl>
-</div>
+                                    <dt>
+                                        Đánh giá:
+                                    </dt>
+
+                                    <dd>
+                                        @if (Model.DanhgiaCH != null)
+                                        {
+                                            <i class="material-icons">star_border</i>
+                                        }
+                                        else
+                                        {
+                                            <i class="material-icons">star_border</i>
+                                        }
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.MaDonHang)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.MaDonHang)
+                                    </dd>
+
+                                </dl>
+                            </p>
+                        </div>
+                       
+                    </div>
+                  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.MaCH }) |
     @Html.ActionLink("Back to List", "Index")

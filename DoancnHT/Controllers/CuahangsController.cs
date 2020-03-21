@@ -69,6 +69,18 @@ namespace DoancnHT.Controllers
             if (response.IsSuccessStatusCode)
             {
                 cuahangs = await response.Content.ReadAsAsync<Cuahang>();
+                //dong hoac mo data table 
+                ViewBag.accept = false;
+                
+                
+                // Call api
+                HttpResponseMessage responseMessage = await client.GetAsync(url + @"Danhmucdoans/");
+                // Get all data from the ViTien table 
+                List<Danhmucdoan> danhmucdoans = DanhmucdoansController.getAllDanhmucdoan(responseMessage);
+                // Check data with id customer
+                danhmucdoans = danhmucdoans.Where(n => n.MaCH == id).ToList();
+                ViewBag.danhmuc = danhmucdoans;
+
             }
             return View(cuahangs);
         }

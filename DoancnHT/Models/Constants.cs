@@ -20,5 +20,6 @@ namespace DoancnHT.Models
         public static int STATUS_ORDER_DELIVERY = 2;
         public static int STATUS_ORDER_DELIVERD = 3;
         public static int STATUS_ORDER_BOOM = 4;
+
     }
 }

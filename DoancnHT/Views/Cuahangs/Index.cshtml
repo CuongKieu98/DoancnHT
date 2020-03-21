@@ -55,7 +55,7 @@
                                 <th>Mô tả</th>
                                 <th>Đánh giá</th>
                                 @*<th>Mã đơn hàng</th>*@
-                                <th>Mã khuyến mãi</th>
+                                @*<th>Mã khuyến mãi</th>*@
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
@@ -68,7 +68,7 @@
                                 <th>Mô tả</th>
                                 <th>Đánh giá</th>
                                 @*<th>Mã đơn hàng</th>*@
-                                <th>Mã khuyến mãi</th>
+                                @*<th>Mã khuyến mãi</th>*@
                                 <th>Thao tác</th>
                             </tr>
                         </tfoot>
@@ -98,8 +98,7 @@
             @Html.DisplayFor(modelItem => item.MaDonHang)
         </td>*@
 
-                                <td>
-                                </td>
+                             
                                 <td>
                                     <a href="@Url.Action("Delete","Cuahangs", new { id = item.MaCH })" title="Xóa"><i class="material-icons">delete_forever</i></a>
                                 </td>

@@ -66,7 +66,15 @@ namespace DoancnHT.Controllers
             HttpResponseMessage response = await client.GetAsync(url + @"Danhmucdoans/" + id);
             if (response.IsSuccessStatusCode)
             {
-                danhmucdoans = await response.Content.ReadAsAsync<Danhmucdoan>();
+                //dong hoac mo data table 
+                ViewBag.accept = false;
+                // Call api
+                HttpResponseMessage responseMessage = await client.GetAsync(url + @"Doans/");
+                List<Doan> doans = DoansController.getAllDoan(responseMessage);
+                // Check data with id customer
+                doans = doans.Where(n => n.MaDA == id).ToList();
+                ViewBag.da = doans;
+                
             }
             return View(danhmucdoans);
         }

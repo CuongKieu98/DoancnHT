@@ -68,6 +68,7 @@ namespace DoancnHT.Controllers
             {
                 //dong hoac mo data table 
                 ViewBag.accept = false;
+                danhmucdoans = await response.Content.ReadAsAsync<Danhmucdoan>();
                 // Call api
                 HttpResponseMessage responseMessage = await client.GetAsync(url + @"Doans/");
                 List<Doan> doans = DoansController.getAllDoan(responseMessage);

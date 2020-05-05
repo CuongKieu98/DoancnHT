@@ -32,7 +32,9 @@ namespace DoancnHT.Controllers
         // GET: Doans
         public async Task<ActionResult> Index()
         {
+            
             HttpResponseMessage responseMessage = await client.GetAsync(url + @"Doans/");
+
             List<Doan> da = getAllDoan(responseMessage);
             if (da != null)
             {
@@ -64,9 +66,16 @@ namespace DoancnHT.Controllers
         {
             Doan doans = null;
             HttpResponseMessage response = await client.GetAsync(url + @"Doans/" + id);
+
             if (response.IsSuccessStatusCode)
             {
+                ViewBag.accept = false;
+                
                 doans = await response.Content.ReadAsAsync<Doan>();
+                HttpResponseMessage responseMessage = await client.GetAsync(url + @"Danhmucdoans/");
+                List<Danhmucdoan> danhmucdoans = DanhmucdoansController.getAllDanhmucdoan(responseMessage);
+                danhmucdoans = danhmucdoans.Where(n => n.MaDM == id).ToList();
+                ViewBag.Danhmucdoan = danhmucdoans;
             }
             return View(doans);
         }

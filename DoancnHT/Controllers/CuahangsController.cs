@@ -75,9 +75,9 @@ namespace DoancnHT.Controllers
                 
                 // Call api
                 HttpResponseMessage responseMessage = await client.GetAsync(url + @"Danhmucdoans/");
-                // Get all data from the ViTien table 
+                // Get all data
                 List<Danhmucdoan> danhmucdoans = DanhmucdoansController.getAllDanhmucdoan(responseMessage);
-                // Check data with id customer
+                // Check data 
                 danhmucdoans = danhmucdoans.Where(n => n.MaCH == id).ToList();
                 ViewBag.danhmuc = danhmucdoans;
 

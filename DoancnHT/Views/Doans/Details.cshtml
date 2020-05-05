@@ -6,7 +6,40 @@
 }
 
 <h2>Details</h2>
-
+<div class="row clearfix">
+    <div class="col-md-12">
+        <div class="card-group text-center">
+            <div class="card">
+                <img class="img-fluid" src="assets/images/puppy-4.jpg" alt="Card image cap">
+               
+            </div>
+            <div class="card">
+                
+                <div class="body">
+                    <h4 class="title">    @Html.DisplayFor(model => model.TenDA)</h4>
+                    <p> @Html.DisplayFor(model => model.Dongia)</p>
+                    <p class="text"> </p>
+                    <p></p>
+                    <small class="text-muted">Cập nhật lúc: @Html.DisplayFor(model => model.NgayCapNhat) </small>
+                  
+                </div>
+            </div>
+            <div class="card">
+             
+                <div class="body">
+                    <h4 class="title">Tồn kho:    @Html.DisplayFor(model => model.SoLuongTon) </h4>
+                    <p class="text">
+                        @Html.DisplayFor(model => model.MoTa)
+                    </p>
+                    <a class="btn btn-sm waves-effect">   @Html.DisplayFor(model => model.TrangThaiDA)</a>
+                    <p class="text">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div>
     <h4>Doan</h4>
     <hr />

@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Các sản phẩm thuộc danh mục</h2>
 <div class="body">
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
@@ -13,18 +13,22 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>sản phẩm</th>
-                   
-                    <th>Mô tả</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Hình ảnh</th>
+                    <th>Đơn giá</th>
+       
+
                     <th>Thao tác</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <th>No.</th>
-                    <th>Loại sản phẩm</th>
-                    <th>Mô tả</th>
-               
+                    <th>Tên sản phẩm</th>
+                    <th>Hình ảnh</th>
+                    <th>Đơn giá</th>
+         
+
                     <th>Thao tác</th>
                 </tr>
             </tfoot>
@@ -38,13 +42,13 @@
                     <td>
                         @Html.ActionLink(doan.TenDA, "Details", new { id = doan.MaDA })
                     </td>
-
+                    <td>
+                        @Html.DisplayFor(modelItem => doan.AnhDA)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => doan.Dongia)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => doan.MoTa)
-                    </td>
+                  
                     <td>
                         <a href="@Url.Action("Delete","Cuahangs", new { id = doan.MaDA })" title="Xóa"><i class="material-icons">delete_forever</i></a>
                     </td>
